@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+
+<div class="page-header">
+    <h1>Welcome back {{ current_user.username }}</h1>
+</div>
+<hr>
+<br>
+
+<h2>Add New Task</h2>
+<form action='/tasks/' method='post' class="form">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4">
+            {% bootstrap_field form.body show_label=False%}
+        </div>
+        <div class="col-md-4">
+           {% bootstrap_field form.due show_label=False%}
+        </div>
+        <div class="col-md-4">
+            {% bootstrap_button 'Add Task' button_type='submit' button_class='btn-primary'%}
+        </div>
+
+    </div>
+</form>
+<hr>
+<h2>Tasks</h2>
+<table class="table">
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+        <td>
+            {{ task.body }}
+        </td>
+        <td>
+            {{ task.due }}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock page_content %}
